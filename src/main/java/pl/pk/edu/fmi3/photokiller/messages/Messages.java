@@ -71,4 +71,11 @@ public class Messages {
 		alert.setContentText("This functionality is waiting for implementation and will be available as soon as it possible.");
 		alert.showAndWait();
 	}
+	public static void messagesMe(String messages) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Info");
+		alert.setHeaderText("Not implemented yet.");
+		alert.setContentText(messages);
+		alert.showAndWait();
+	}
 }

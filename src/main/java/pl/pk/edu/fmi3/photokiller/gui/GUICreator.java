@@ -52,7 +52,7 @@ public class GUICreator implements GuiCreatorInterface{
 	private void addControlsToNorthSide(){
 		FlowPane northPane = new FlowPane();
 		AbstractControlsFactory buttonSearch = new ButtonControlsFactory("Search",URI_TO_SEARCH_ICON);
-		((Button)buttonSearch.getControl()).setOnAction(new SearchButtonEvent());
+		((Button)buttonSearch.getControl()).setOnAction(new SearchButtonEvent(this));
 		AbstractControlsFactory buttonCompare = new ButtonControlsFactory("Compare",URI_TO_COMPARE_ICON);
 		((Button)buttonCompare.getControl()).setOnAction(new CompareButtonEvent());
 		AbstractControlsFactory buttonExit = new ButtonControlsFactory("Exit",URI_TO_EXIT_ICON);
@@ -130,5 +130,17 @@ public class GUICreator implements GuiCreatorInterface{
 		sourcePath = sourceFile;
 		TextField sourceTF = ((TextField)((GridPane)mainPane.getChildren().get(1)).getChildren().get(1));
 		sourceTF.setText(sourcePath.getPath());
+	}
+	
+	public void setResultFiles(File[] resultFiles) {
+		
+	}
+	
+	public File getSearchFile() {
+		return searchPath;
+	}
+	
+	public File getSourceFile() {
+		return sourcePath;
 	}
 }
