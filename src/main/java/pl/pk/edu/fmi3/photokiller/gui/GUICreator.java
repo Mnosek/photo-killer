@@ -28,6 +28,7 @@ public class GUICreator implements GuiCreatorInterface{
 	private final String URI_TO_COMPARE_ICON = "Resource/WorkGroup.png";
 	private File sourcePath;
 	private File searchPath;
+	private TableViewControlsFactory sourceFileTable;
 	
 	/**
 	 * Contstructor
@@ -102,9 +103,15 @@ public class GUICreator implements GuiCreatorInterface{
 	 * Method adds controls in the center of main frame
 	 */
 	private void addControlsInside(){
-		AbstractControlsFactory tableView = new TableViewControlsFactory();
-		mainPane.setCenter(tableView.getControl());
+		sourceFileTable = new TableViewControlsFactory();
+		mainPane.setCenter(sourceFileTable.getControl());
 	}
+	
+	public void fillSourceFileList(ArrayList<File> sourceList)
+	{
+		sourceFileTable.addItemsToTable(sourceList);
+	}
+	
 	
 	/**
 	 * Method returns main panel

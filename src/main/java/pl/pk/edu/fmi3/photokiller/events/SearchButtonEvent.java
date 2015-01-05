@@ -32,8 +32,7 @@ public class SearchButtonEvent implements EventHandler<ActionEvent>{
 			Messages.messagesMe("Uzupełnij sciezki");
 		} else {
 			SearchModel search = new SearchModel(searchPath, sourcePath);
-			
-			Messages.messagesMe("Uzupełnij sciezki");
+			guiC.fillSourceFileList(search.getSourceCollection());
 		}
 		
 	}

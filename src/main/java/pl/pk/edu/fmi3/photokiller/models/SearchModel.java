@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 
  * @author Wojciech Polus - polusw@hotmail.com
@@ -12,17 +13,17 @@ import java.util.List;
  */
 public class SearchModel {
 
-	private List<File> searchColection = new ArrayList<File>();
-	private List<File> sourceColection = new ArrayList<File>();
+	private ArrayList<File> searchColection = new ArrayList<File>();
+	private ArrayList<File> sourceColection = new ArrayList<File>();
 	
 	public SearchModel(File searchPath, File sourcePath) {
 		
 		SearchPath(searchPath, searchColection);
 		SearchPath(sourcePath, sourceColection);
-		
+				
 	}
 	
-	private void SearchPath(File path, List<File> result) {
+	private void SearchPath(File path, ArrayList<File> result) {
 		
 		File[] collection = path.listFiles(new FileFilter() {
 		    @Override
@@ -37,7 +38,11 @@ public class SearchModel {
 			} else {
 				result.add(file);
 			}
-		}
-		
+		}	
+	}
+	
+	public ArrayList<File> getSourceCollection()
+	{
+		return sourceColection;
 	}
 }

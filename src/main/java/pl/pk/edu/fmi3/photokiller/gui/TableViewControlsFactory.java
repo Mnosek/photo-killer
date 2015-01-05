@@ -10,6 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import java.io.File;
+
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
@@ -44,10 +46,10 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	 * @param items arraylist of items
 	 */
 	@SuppressWarnings("unchecked")
-	public void addItemsToTable(ArrayList<FileModel> items){
+	public void addItemsToTable(ArrayList<File> items){
 		ObservableList<FileModelForTableView> tableList = FXCollections.observableArrayList();
-		for (FileModel fm : items)
-			tableList.add(new FileModelForTableView(fm.getFileName(), fm.getFilePath()));
+		for (File fm : items)
+			tableList.add(new FileModelForTableView(fm.getName(), fm.getPath()));
 		if (control instanceof TableView<?>)
 			((TableView<FileModelForTableView>)control).setItems(tableList);
 	}
