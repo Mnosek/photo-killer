@@ -1,5 +1,7 @@
 package pl.pk.edu.fmi3.photokiller.models;
 
+import java.io.File;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,7 +39,7 @@ public class FileModelForTableView {
 	}
 
 	public String getFilePath() {
-		return filePath.get();
+		return new File(filePath.get()).toURI().toString();
 	}
 
 	public void setFilePath(String filePath) {

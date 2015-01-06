@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -15,6 +18,7 @@ import pl.pk.edu.fmi3.photokiller.events.CompareButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.DeleteButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.SearchButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.ChangeButtonEvent.ChangeName;
+import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
@@ -28,7 +32,12 @@ public class GUICreator implements GuiCreatorInterface{
 	private final String URI_TO_COMPARE_ICON = "Resource/WorkGroup.png";
 	private File sourcePath;
 	private File searchPath;
+	
 	private TableViewControlsFactory sourceFileTable;
+	private TableViewControlsFactory duplicateFileTable;
+	private ImageView sourceImageView;
+	private ImageView duplicateImageView; 
+	
 	
 	/**
 	 * Contstructor
@@ -38,6 +47,7 @@ public class GUICreator implements GuiCreatorInterface{
 		createMainWindow();
 	}
 	
+	
 	/**
 	 * Method add controls to main frame
 	 */
@@ -46,6 +56,7 @@ public class GUICreator implements GuiCreatorInterface{
 		addControlsToSouthSide();
 		addControlsInside();
 	}
+	
 	
 	/**
 	 * Method adds controls in the top part of frame
@@ -63,6 +74,7 @@ public class GUICreator implements GuiCreatorInterface{
 		northPane.getChildren().addAll(buttonExit.getControl(),buttonSearch.getControl(),buttonCompare.getControl(),buttonDelete.getControl());
 		mainPane.setTop(northPane);
 	}
+	
 	
 	/**
 	 * Method adds controls in the bottom part of frame
@@ -99,17 +111,53 @@ public class GUICreator implements GuiCreatorInterface{
 		mainPane.setBottom(southPane);
 	}
 	
+	
 	/**
 	 * Method adds controls in the center of main frame
 	 */
 	private void addControlsInside(){
+		GridPane centerPane = new GridPane();
+		
 		sourceFileTable = new TableViewControlsFactory();
-		mainPane.setCenter(sourceFileTable.getControl());
+		((TableView<FileModelForTableView>)sourceFileTable.getControl()).getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+			this.setSourceImage(newValue);
+		});
+
+		duplicateFileTable = new TableViewControlsFactory();
+		sourceImageView = new ImageView();
+		duplicateImageView = new ImageView();
+		
+		GridPane.setConstraints(sourceFileTable.getControl(), 1, 1);
+		GridPane.setConstraints(duplicateFileTable.getControl(), 2, 1);
+		GridPane.setConstraints(sourceImageView, 1, 2);
+		GridPane.setConstraints(duplicateImageView, 2, 2);
+		
+		ArrayList<Node> controls = new ArrayList<>();
+		controls.add(sourceFileTable.getControl());
+		controls.add(duplicateFileTable.getControl());
+		controls.add(sourceImageView);
+		controls.add(duplicateImageView);
+		
+		centerPane.getChildren().addAll(controls);
+		mainPane.setCenter(centerPane);
 	}
 	
+	
+	/**
+	 * Fills source file list
+	 * @param ArrayList<File> sourceList
+	 */
 	public void fillSourceFileList(ArrayList<File> sourceList)
 	{
 		sourceFileTable.addItemsToTable(sourceList);
+	}
+	
+	
+	public void setSourceImage(FileModelForTableView tableFile)
+	{	
+		Image image = new Image(tableFile.getFilePath(), 150, 150, false, false);
+
+		sourceImageView.setImage(image);
 	}
 	
 	
@@ -121,6 +169,7 @@ public class GUICreator implements GuiCreatorInterface{
 		return mainPane;
 	}
 	
+	
 	/**
 	 * Method sets search path in control
 	 */
@@ -129,6 +178,7 @@ public class GUICreator implements GuiCreatorInterface{
 		TextField searchTF = ((TextField)((GridPane)mainPane.getChildren().get(1)).getChildren().get(3));
 		searchTF.setText(searchPath.getPath());
 	}
+	
 	
 	/**
 	 * Method sets source path in control
@@ -139,9 +189,6 @@ public class GUICreator implements GuiCreatorInterface{
 		sourceTF.setText(sourcePath.getPath());
 	}
 	
-	public void setResultFiles(File[] resultFiles) {
-		
-	}
 	
 	public File getSearchFile() {
 		return searchPath;

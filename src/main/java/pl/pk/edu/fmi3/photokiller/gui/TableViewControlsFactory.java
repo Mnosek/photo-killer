@@ -18,7 +18,7 @@ import java.io.File;
  * Factory of tableview controls
  */
 public class TableViewControlsFactory extends AbstractControlsFactory{
-	
+	public FileModelForTableView selected;
 	/**
 	 * Constructor
 	 */
@@ -28,10 +28,13 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		TableColumn<FileModelForTableView, Boolean> selectionColumn = new TableColumn<FileModelForTableView, Boolean>();
 		TableColumn<FileModelForTableView, String> fileNameColumn = new TableColumn<FileModelForTableView, String>("File name");
 		TableColumn<FileModelForTableView, String> filePathColumn = new TableColumn<FileModelForTableView, String>("File path");
+		
 		if (control instanceof TableView<?>){
 			((TableView<FileModelForTableView>)control).getColumns().addAll(selectionColumn,fileNameColumn,filePathColumn);
 			((TableView<FileModelForTableView>)control).setEditable(true);
+			
 		}
+		
 		selectionColumn.setCellValueFactory(new PropertyValueFactory<FileModelForTableView, Boolean>("fileSelection"));
 		selectionColumn.setCellFactory(CheckBoxTableCell.forTableColumn(selectionColumn));
 		selectionColumn.setEditable(true);
@@ -39,6 +42,9 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		fileNameColumn.setPrefWidth(300);
 		filePathColumn.setCellValueFactory(new PropertyValueFactory<FileModelForTableView, String>("filePath"));
 		filePathColumn.setPrefWidth(550);
+	    
+
+
 	}
 	
 	/**
@@ -53,6 +59,7 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		if (control instanceof TableView<?>)
 			((TableView<FileModelForTableView>)control).setItems(tableList);
 	}
+	
 	
 	/**
 	 * Method returns selected items
