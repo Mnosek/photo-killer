@@ -2,6 +2,7 @@ package pl.pk.edu.fmi3.photokiller.gui;
 
 import java.util.ArrayList;
 
+import pl.pk.edu.fmi3.photokiller.models.CompareModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.io.File;
 
 /**
@@ -19,6 +21,8 @@ import java.io.File;
  */
 public class TableViewControlsFactory extends AbstractControlsFactory{
 	public FileModelForTableView selected;
+
+	
 	/**
 	 * Constructor
 	 */
@@ -27,7 +31,7 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		control = new TableView<FileModelForTableView>();
 		TableColumn<FileModelForTableView, Boolean> selectionColumn = new TableColumn<FileModelForTableView, Boolean>();
 		TableColumn<FileModelForTableView, String> fileNameColumn = new TableColumn<FileModelForTableView, String>("File name");
-		TableColumn<FileModelForTableView, String> filePathColumn = new TableColumn<FileModelForTableView, String>("File path");
+		TableColumn<FileModelForTableView, String> filePathColumn = new TableColumn<FileModelForTableView, String>("%");
 		
 		if (control instanceof TableView<?>){
 			((TableView<FileModelForTableView>)control).getColumns().addAll(selectionColumn,fileNameColumn,filePathColumn);
@@ -40,11 +44,8 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		selectionColumn.setEditable(true);
 		fileNameColumn.setCellValueFactory(new PropertyValueFactory<FileModelForTableView, String>("fileName"));
 		fileNameColumn.setPrefWidth(300);
-		filePathColumn.setCellValueFactory(new PropertyValueFactory<FileModelForTableView, String>("filePath"));
-		filePathColumn.setPrefWidth(550);
-	    
-
-
+		filePathColumn.setCellValueFactory(new PropertyValueFactory<FileModelForTableView, String>("fileSimilarity"));
+		filePathColumn.setPrefWidth(50);
 	}
 	
 	/**
@@ -60,6 +61,22 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 			((TableView<FileModelForTableView>)control).setItems(tableList);
 	}
 	
+	public void addItemToTable(FileModelForTableView file)
+	{
+		ObservableList<FileModelForTableView> tableList = ((TableView<FileModelForTableView>)control).getItems();
+		tableList.add(file);
+		
+		if (control instanceof TableView<?>)
+			((TableView<FileModelForTableView>)control).setItems(tableList);
+	}
+	
+	
+	public void removeItems()
+	{
+		((TableView<FileModelForTableView>)control).getItems().clear();
+	}
+	
+	
 	
 	/**
 	 * Method returns selected items
@@ -72,7 +89,7 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 			ObservableList<FileModelForTableView> items = ((TableView<FileModelForTableView>)control).getItems();
 			for (FileModelForTableView fm : items){
 				if (fm.getFileSelection())
-					selectedItems.add(new FileModel(fm.getFileName(), fm.getFilePath()));
+					selectedItems.add(new FileModel(fm.getFileName(), fm.getFilePath().toString()));
 			}
 		}
 		return selectedItems;

@@ -45,4 +45,9 @@ public class SearchModel {
 	{
 		return sourceColection;
 	}
+	
+	public ArrayList<File> getSearchCollection()
+	{
+		return searchColection;
+	}
 }

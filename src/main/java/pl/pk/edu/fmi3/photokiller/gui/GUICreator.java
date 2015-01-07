@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,10 +19,13 @@ import pl.pk.edu.fmi3.photokiller.events.CompareButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.DeleteButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.SearchButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.ChangeButtonEvent.ChangeName;
+import pl.pk.edu.fmi3.photokiller.models.CompareModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
+ * @author Michał Nosek <mmnosek@gmail.com>
+ * 
  * Class of main frame of application
  */
 public class GUICreator implements GuiCreatorInterface{
@@ -37,6 +41,7 @@ public class GUICreator implements GuiCreatorInterface{
 	private TableViewControlsFactory duplicateFileTable;
 	private ImageView sourceImageView;
 	private ImageView duplicateImageView; 
+	public ProgressBar comparsionProgress;
 	
 	
 	/**
@@ -119,9 +124,10 @@ public class GUICreator implements GuiCreatorInterface{
 		GridPane centerPane = new GridPane();
 		
 		sourceFileTable = new TableViewControlsFactory();
-		((TableView<FileModelForTableView>)sourceFileTable.getControl()).getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-			this.setSourceImage(newValue);
-		});
+		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getColumns().get(2).setVisible(false);
+		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getColumns().get(0).setVisible(false);
+		
+		comparsionProgress = new ProgressBar(0);
 
 		duplicateFileTable = new TableViewControlsFactory();
 		sourceImageView = new ImageView();
@@ -131,12 +137,15 @@ public class GUICreator implements GuiCreatorInterface{
 		GridPane.setConstraints(duplicateFileTable.getControl(), 2, 1);
 		GridPane.setConstraints(sourceImageView, 1, 2);
 		GridPane.setConstraints(duplicateImageView, 2, 2);
+		GridPane.setConstraints(comparsionProgress, 1, 3);
+
 		
 		ArrayList<Node> controls = new ArrayList<>();
 		controls.add(sourceFileTable.getControl());
 		controls.add(duplicateFileTable.getControl());
 		controls.add(sourceImageView);
 		controls.add(duplicateImageView);
+		controls.add(comparsionProgress);
 		
 		centerPane.getChildren().addAll(controls);
 		mainPane.setCenter(centerPane);
@@ -153,10 +162,22 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	public void fillDuplicateTableList(FileModelForTableView file)
+	{
+		duplicateFileTable.addItemToTable(file);
+	}
+	
+	
+	public void addSourceTableObserver(CompareModel comparator)
+	{
+		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getSelectionModel().getSelectedItems().addListener(comparator);
+
+	}
+	
+	
 	public void setSourceImage(FileModelForTableView tableFile)
 	{	
-		Image image = new Image(tableFile.getFilePath(), 150, 150, false, false);
-
+		Image image = new Image(tableFile.getFilePath().toString(), 150, 150, false, false);
 		sourceImageView.setImage(image);
 	}
 	
@@ -169,6 +190,11 @@ public class GUICreator implements GuiCreatorInterface{
 		return mainPane;
 	}
 	
+	
+	public TableViewControlsFactory getDuplicateTable()
+	{
+		return this.duplicateFileTable;
+	}
 	
 	/**
 	 * Method sets search path in control

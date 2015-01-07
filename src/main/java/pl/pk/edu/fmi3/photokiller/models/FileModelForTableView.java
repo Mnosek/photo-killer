@@ -1,6 +1,7 @@
 package pl.pk.edu.fmi3.photokiller.models;
 
 import java.io.File;
+import java.net.URI;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,11 +16,22 @@ public class FileModelForTableView {
 	BooleanProperty fileSelection;
 	StringProperty fileName;
 	StringProperty filePath;
+	StringProperty fileSimilarity;
 	
 	public FileModelForTableView(String fileName, String filePath){
 		this.fileSelection = new SimpleBooleanProperty(false);
 		this.fileName = new SimpleStringProperty(fileName);
 		this.filePath = new SimpleStringProperty(filePath);
+		this.fileSimilarity = new SimpleStringProperty("");
+
+		
+	}
+	
+	public FileModelForTableView(String fileName, String filePath, String fileSimilarity){
+		this.fileSelection = new SimpleBooleanProperty(false);
+		this.fileName = new SimpleStringProperty(fileName);
+		this.filePath = new SimpleStringProperty(filePath);
+		this.fileSimilarity = new SimpleStringProperty(fileSimilarity);
 	}
 
 	public Boolean getFileSelection() {
@@ -33,14 +45,20 @@ public class FileModelForTableView {
 	public String getFileName() {
 		return fileName.get();
 	}
+	
+	public String getFileSimilarity(){
+		return fileSimilarity.get();
+	}
 
 	public void setFileName(String fileName) {
 		this.fileName.set(fileName);
 	}
 
-	public String getFilePath() {
-		return new File(filePath.get()).toURI().toString();
+	public URI getFilePath() {
+		return new File(filePath.get()).toURI();
 	}
+	
+	
 
 	public void setFilePath(String filePath) {
 		this.filePath.set(filePath);
