@@ -74,7 +74,7 @@ public class Messages {
 	public static void messagesMe(String messages) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Info");
-		alert.setHeaderText("Not implemented yet.");
+		alert.setHeaderText(":(");
 		alert.setContentText(messages);
 		alert.showAndWait();
 	}

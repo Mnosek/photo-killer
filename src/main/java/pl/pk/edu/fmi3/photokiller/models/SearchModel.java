@@ -1,9 +1,10 @@
 package pl.pk.edu.fmi3.photokiller.models;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
-import java.util.List;
+
+import pl.pk.edu.fmi3.photokiller.library.ImageFileFilter;
+import pl.pk.edu.fmi3.photokiller.messages.Messages;
 
 
 /**
@@ -19,18 +20,18 @@ public class SearchModel {
 	public SearchModel(File searchPath, File sourcePath) {
 		
 		SearchPath(searchPath, searchColection);
+		if (searchColection == null) {
+			Messages.messagesMe("Nie znaleziono plików w ścieżce SearchPath");
+		}
 		SearchPath(sourcePath, sourceColection);
-				
+		if (sourceColection == null) {
+			Messages.messagesMe("Nie znaleziono plików w ścieżce SurcePath");
+		}
 	}
 	
 	private void SearchPath(File path, ArrayList<File> result) {
 		
-		File[] collection = path.listFiles(new FileFilter() {
-		    @Override
-		    public boolean accept(File file) {
-		        return !file.isHidden();
-		    }
-		});
+		File[] collection = path.listFiles(new ImageFileFilter());
 		
 		for (File file : collection) {
 			if (file.isDirectory()) {
@@ -39,6 +40,7 @@ public class SearchModel {
 				result.add(file);
 			}
 		}	
+		
 	}
 	
 	public ArrayList<File> getSourceCollection()
