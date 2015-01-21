@@ -8,35 +8,37 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
-import javafx.collections.ListChangeListener;
 
 
 /**
  * Images compare model
  * @author Michał Nosek <mmnosek@gmail.com>
+ * @author Wojciech Polus <polusw@hotmail.com>
  *
  */
-public class CompareModel implements ListChangeListener<FileModelForTableView> {
-
+public class CompareModel implements Runnable {
+	private Thread t;
 	private ArrayList<File> searchFiles;
 	private GUICreator guiC;
+	private javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file;
 	
-	public CompareModel(ArrayList<File> fileList, GUICreator guiC) {
+	public CompareModel(ArrayList<File> fileList, GUICreator guiC, 
+			javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file) {
 		this.searchFiles = fileList;
 		this.guiC = guiC;
+		this.file = file;
 	}
 	
-	
-	@Override
-	public void onChanged(
-			javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file) {
-			file.next();
-
-			for (FileModelForTableView additem : file.getAddedSubList()) {
-					this.compareToSearch(additem);
-			}
+	public void run() {
+		for (FileModelForTableView additem : file.getAddedSubList()) {
+			this.compareToSearch(additem);
+		}
 	}
 	
+	public void start() {
+		t = new Thread (this);
+        t.start ();
+	}
 	
 	public void compareToSearch(FileModelForTableView source)
 	{
@@ -94,4 +96,5 @@ public class CompareModel implements ListChangeListener<FileModelForTableView> {
 	    double p = diff / n / 255.0;
 	    return 100 - (p * 100.0);
 	}
+	
 }

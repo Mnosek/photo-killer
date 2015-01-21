@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 import pl.pk.edu.fmi3.photokiller.messages.Messages;
-import pl.pk.edu.fmi3.photokiller.models.CompareModel;
+import pl.pk.edu.fmi3.photokiller.models.ObserverListModel;
 import pl.pk.edu.fmi3.photokiller.models.SearchModel;
 
 import java.io.File;
@@ -34,7 +34,7 @@ public class SearchButtonEvent implements EventHandler<ActionEvent>{
 		} else {
 			SearchModel search = new SearchModel(searchPath, sourcePath);
 			guiC.fillSourceFileList(search.getSourceCollection());
-			guiC.addSourceTableObserver(new CompareModel(search.getSearchCollection(), guiC));
+			guiC.addSourceTableObserver(new ObserverListModel(search.getSearchCollection(), guiC));
 		}
 		
 	}

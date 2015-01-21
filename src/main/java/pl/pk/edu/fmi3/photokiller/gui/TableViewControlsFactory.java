@@ -2,7 +2,7 @@ package pl.pk.edu.fmi3.photokiller.gui;
 
 import java.util.ArrayList;
 
-import pl.pk.edu.fmi3.photokiller.models.CompareModel;
+import pl.pk.edu.fmi3.photokiller.models.ObserverListModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
 import javafx.collections.FXCollections;

@@ -19,7 +19,7 @@ import pl.pk.edu.fmi3.photokiller.events.CompareButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.DeleteButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.SearchButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.ChangeButtonEvent.ChangeName;
-import pl.pk.edu.fmi3.photokiller.models.CompareModel;
+import pl.pk.edu.fmi3.photokiller.models.ObserverListModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
 /**
  * 
@@ -168,7 +168,7 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
-	public void addSourceTableObserver(CompareModel comparator)
+	public void addSourceTableObserver(ObserverListModel comparator)
 	{
 		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getSelectionModel().getSelectedItems().addListener(comparator);
 
