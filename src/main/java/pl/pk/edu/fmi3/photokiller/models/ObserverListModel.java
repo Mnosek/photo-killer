@@ -28,8 +28,15 @@ public class ObserverListModel implements ListChangeListener<FileModelForTableVi
 	public void onChanged(
 			javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file) {
 			while (file.next()) {
+				if(file.wasAdded()) {
+				
+				for (FileModelForTableView additem : file.getAddedSubList()) {
+					guiC.setSourceImage(additem);
+				}
+				
 				CompareModel compare = new CompareModel(searchFiles, guiC, file);
 				compare.start();
+				}
 			}
 	}
 	

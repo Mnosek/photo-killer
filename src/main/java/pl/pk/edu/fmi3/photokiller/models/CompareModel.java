@@ -29,16 +29,23 @@ public class CompareModel implements Runnable {
 		this.file = file;
 	}
 	
+	
+	
 	public void run() {
+		file.next();
 		for (FileModelForTableView additem : file.getAddedSubList()) {
 			this.compareToSearch(additem);
 		}
 	}
 	
+	
+	
 	public void start() {
 		t = new Thread (this);
         t.start ();
 	}
+	
+	
 	
 	public void compareToSearch(FileModelForTableView source)
 	{
@@ -50,6 +57,7 @@ public class CompareModel implements Runnable {
 	    try {
 	    	sourceImage = ImageIO.read(source.getFilePath().toURL());
 	    	Integer i = 0;
+	    	
 		    for (File fm : this.searchFiles){
 		    	targetImage = ImageIO.read(fm.toURI().toURL());
 		    	similarity = this.percentageSimilarity(sourceImage, targetImage);
@@ -57,7 +65,9 @@ public class CompareModel implements Runnable {
 		    		this.guiC.fillDuplicateTableList(new FileModelForTableView(fm.getName(), fm.getPath(), similarity.toString()));
 		    	}
 		    	i++;
-		    	this.guiC.comparsionProgress.setProgress(i/this.searchFiles.size());
+		    	
+		    	
+		    	this.guiC.comparsionProgress.setProgress((double)i/this.searchFiles.size());
 		    	
 			}
 	    } catch (IOException e) {

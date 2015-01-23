@@ -15,12 +15,12 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import pl.pk.edu.fmi3.photokiller.events.ChangeButtonEvent;
-import pl.pk.edu.fmi3.photokiller.events.CompareButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.DeleteButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.SearchButtonEvent;
 import pl.pk.edu.fmi3.photokiller.events.ChangeButtonEvent.ChangeName;
 import pl.pk.edu.fmi3.photokiller.models.ObserverListModel;
 import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
+import pl.pk.edu.fmi3.photokiller.models.SearchObserverListModel;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
@@ -33,7 +33,6 @@ public class GUICreator implements GuiCreatorInterface{
 	private final String URI_TO_DELETE_ICON = "Resource/file_document_paper_red_g10010.png";
 	private final String URI_TO_SEARCH_ICON = "Resource/Search2.png";
 	private final String URI_TO_EXIT_ICON = "Resource/file_document_paper_red_g12932.png";
-	private final String URI_TO_COMPARE_ICON = "Resource/WorkGroup.png";
 	private File sourcePath;
 	private File searchPath;
 	
@@ -70,13 +69,11 @@ public class GUICreator implements GuiCreatorInterface{
 		FlowPane northPane = new FlowPane();
 		AbstractControlsFactory buttonSearch = new ButtonControlsFactory("Search",URI_TO_SEARCH_ICON);
 		((Button)buttonSearch.getControl()).setOnAction(new SearchButtonEvent(this));
-		AbstractControlsFactory buttonCompare = new ButtonControlsFactory("Compare",URI_TO_COMPARE_ICON);
-		((Button)buttonCompare.getControl()).setOnAction(new CompareButtonEvent());
 		AbstractControlsFactory buttonExit = new ButtonControlsFactory("Exit",URI_TO_EXIT_ICON);
 		((Button)buttonExit.getControl()).setOnAction(event -> System.exit(0));
 		AbstractControlsFactory buttonDelete = new ButtonControlsFactory("Delete",URI_TO_DELETE_ICON);
-		((Button)buttonDelete.getControl()).setOnAction(new DeleteButtonEvent());
-		northPane.getChildren().addAll(buttonExit.getControl(),buttonSearch.getControl(),buttonCompare.getControl(),buttonDelete.getControl());
+		((Button)buttonDelete.getControl()).setOnAction(new DeleteButtonEvent(this));
+		northPane.getChildren().addAll(buttonExit.getControl(),buttonSearch.getControl(),buttonDelete.getControl());
 		mainPane.setTop(northPane);
 	}
 	
@@ -122,12 +119,14 @@ public class GUICreator implements GuiCreatorInterface{
 	 */
 	private void addControlsInside(){
 		GridPane centerPane = new GridPane();
+		Pane bottomPane = new Pane();
 		
 		sourceFileTable = new TableViewControlsFactory();
 		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getColumns().get(2).setVisible(false);
 		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getColumns().get(0).setVisible(false);
 		
 		comparsionProgress = new ProgressBar(0);
+		comparsionProgress.setPrefWidth(700);
 
 		duplicateFileTable = new TableViewControlsFactory();
 		sourceImageView = new ImageView();
@@ -135,9 +134,9 @@ public class GUICreator implements GuiCreatorInterface{
 		
 		GridPane.setConstraints(sourceFileTable.getControl(), 1, 1);
 		GridPane.setConstraints(duplicateFileTable.getControl(), 2, 1);
-		GridPane.setConstraints(sourceImageView, 1, 2);
-		GridPane.setConstraints(duplicateImageView, 2, 2);
-		GridPane.setConstraints(comparsionProgress, 1, 3);
+		GridPane.setConstraints(sourceImageView, 1, 3);
+		GridPane.setConstraints(duplicateImageView, 2, 3);
+		GridPane.setConstraints(comparsionProgress, 1, 2, 3, 1);
 
 		
 		ArrayList<Node> controls = new ArrayList<>();
@@ -148,6 +147,8 @@ public class GUICreator implements GuiCreatorInterface{
 		controls.add(comparsionProgress);
 		
 		centerPane.getChildren().addAll(controls);
+		
+		
 		mainPane.setCenter(centerPane);
 	}
 	
@@ -175,10 +176,26 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	public void addSearchTableObserver(SearchObserverListModel observator) {
+		((TableView<FileModelForTableView>)this.duplicateFileTable.getControl()).getSelectionModel().getSelectedItems().addListener(observator);
+	}
+	
+	
 	public void setSourceImage(FileModelForTableView tableFile)
 	{	
-		Image image = new Image(tableFile.getFilePath().toString(), 150, 150, false, false);
+		Image image = new Image(tableFile.getFilePath().toString());
+		sourceImageView.setPreserveRatio(true);
+		sourceImageView.setFitWidth(200);
 		sourceImageView.setImage(image);
+	}
+	
+	
+	public void setDuplicateImage(FileModelForTableView tableFile)
+	{
+		Image image = new Image(tableFile.getFilePath().toString());
+		duplicateImageView.setPreserveRatio(true);
+		duplicateImageView.setFitWidth(200);
+		duplicateImageView.setImage(image);
 	}
 	
 	

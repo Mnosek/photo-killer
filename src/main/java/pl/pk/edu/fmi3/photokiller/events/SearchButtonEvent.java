@@ -6,6 +6,7 @@ import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 import pl.pk.edu.fmi3.photokiller.messages.Messages;
 import pl.pk.edu.fmi3.photokiller.models.ObserverListModel;
 import pl.pk.edu.fmi3.photokiller.models.SearchModel;
+import pl.pk.edu.fmi3.photokiller.models.SearchObserverListModel;
 
 import java.io.File;
 /**
@@ -35,6 +36,7 @@ public class SearchButtonEvent implements EventHandler<ActionEvent>{
 			SearchModel search = new SearchModel(searchPath, sourcePath);
 			guiC.fillSourceFileList(search.getSourceCollection());
 			guiC.addSourceTableObserver(new ObserverListModel(search.getSearchCollection(), guiC));
+			guiC.addSearchTableObserver(new SearchObserverListModel(guiC));
 		}
 		
 	}

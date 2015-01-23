@@ -85,13 +85,13 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	@SuppressWarnings("unchecked")
 	public ArrayList<FileModel> getSelectedItemsAsArrayList(){
 		ArrayList<FileModel> selectedItems = new ArrayList<FileModel>();
-		if (control != null && control instanceof TableView<?>){
+		
 			ObservableList<FileModelForTableView> items = ((TableView<FileModelForTableView>)control).getItems();
 			for (FileModelForTableView fm : items){
+				
 				if (fm.getFileSelection())
 					selectedItems.add(new FileModel(fm.getFileName(), fm.getFilePath().toString()));
 			}
-		}
 		return selectedItems;
 	}
 }

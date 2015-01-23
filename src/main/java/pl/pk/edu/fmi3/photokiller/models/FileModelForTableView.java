@@ -23,8 +23,6 @@ public class FileModelForTableView {
 		this.fileName = new SimpleStringProperty(fileName);
 		this.filePath = new SimpleStringProperty(filePath);
 		this.fileSimilarity = new SimpleStringProperty("");
-
-		
 	}
 	
 	public FileModelForTableView(String fileName, String filePath, String fileSimilarity){
