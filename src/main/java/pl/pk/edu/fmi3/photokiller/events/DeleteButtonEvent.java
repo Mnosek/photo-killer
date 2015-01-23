@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 import pl.pk.edu.fmi3.photokiller.messages.Messages;
 import pl.pk.edu.fmi3.photokiller.models.FileModel;
+import pl.pk.edu.fmi3.photokiller.models.FileModelForTableView;
 import pl.pk.edu.fmi3.photokiller.models.ObserverListModel;
 import pl.pk.edu.fmi3.photokiller.models.SearchModel;
 import pl.pk.edu.fmi3.photokiller.models.SearchObserverListModel;
@@ -35,7 +36,9 @@ public class DeleteButtonEvent implements EventHandler<ActionEvent>{
 		if (selectedList.isEmpty()) {
 			Messages.messagesMe("Wybierz pliki do usunięcia!");
 		} else {
-			
+			for (FileModel item : selectedList) {
+				item.removeFromFilesystem();
+			}
 		}
 		
 	}

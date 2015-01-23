@@ -1,4 +1,7 @@
 package pl.pk.edu.fmi3.photokiller.models;
+
+import java.io.File;
+
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
@@ -22,5 +25,10 @@ public class FileModel {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	
+	public void removeFromFilesystem() {
+		File file = new File(this.getFilePath());
+		file.delete();
 	}
 }
