@@ -27,6 +27,9 @@ public class SearchObserverListModel implements ListChangeListener<FileModelForT
 			while (file.next()) {
 				if(file.wasAdded()) {
 					for (FileModelForTableView additem : file.getAddedSubList()) {
+						
+						additem.getFileSelection().setSelected(true);
+						
 						guiC.setDuplicateImage(additem);
 					}
 				}

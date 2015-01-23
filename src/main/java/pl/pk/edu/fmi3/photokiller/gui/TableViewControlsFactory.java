@@ -21,7 +21,7 @@ import java.io.File;
  */
 public class TableViewControlsFactory extends AbstractControlsFactory{
 	public FileModelForTableView selected;
-
+	public ObservableList<FileModelForTableView> tableList;
 	
 	/**
 	 * Constructor
@@ -54,7 +54,7 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	 */
 	@SuppressWarnings("unchecked")
 	public void addItemsToTable(ArrayList<File> items){
-		ObservableList<FileModelForTableView> tableList = FXCollections.observableArrayList();
+		tableList = FXCollections.observableArrayList();
 		for (File fm : items)
 			tableList.add(new FileModelForTableView(fm.getName(), fm.getPath()));
 		if (control instanceof TableView<?>)
@@ -63,7 +63,7 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	
 	public void addItemToTable(FileModelForTableView file)
 	{
-		ObservableList<FileModelForTableView> tableList = ((TableView<FileModelForTableView>)control).getItems();
+		tableList = ((TableView<FileModelForTableView>)control).getItems();
 		tableList.add(file);
 		
 		if (control instanceof TableView<?>)
@@ -87,10 +87,10 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	public ArrayList<FileModel> getSelectedItemsAsArrayList(){
 		ArrayList<FileModel> selectedItems = new ArrayList<FileModel>();
 		
-			ObservableList<FileModelForTableView> items = ((TableView<FileModelForTableView>)control).getItems();
+			ObservableList<FileModelForTableView> items = tableList;
 			for (FileModelForTableView fm : items){
 				
-				if (fm.getFileSelection())
+				if (fm.getFileSelection().isSelected())
 					selectedItems.add(new FileModel(fm.getFileName(), fm.getFilePath().toString()));
 			}
 		return selectedItems;
