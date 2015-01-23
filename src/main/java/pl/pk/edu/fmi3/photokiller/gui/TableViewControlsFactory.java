@@ -71,6 +71,7 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	}
 	
 	
+	
 	public void removeItems()
 	{
 		((TableView<FileModelForTableView>)control).getItems().clear();
