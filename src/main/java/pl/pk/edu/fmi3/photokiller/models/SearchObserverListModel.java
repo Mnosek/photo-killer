@@ -1,10 +1,7 @@
  package pl.pk.edu.fmi3.photokiller.models;
 
-import java.io.File;
-import java.util.ArrayList;
-
-import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 import javafx.collections.ListChangeListener;
+import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 
 
 /**
@@ -28,7 +25,7 @@ public class SearchObserverListModel implements ListChangeListener<FileModelForT
 				if(file.wasAdded()) {
 					for (FileModelForTableView additem : file.getAddedSubList()) {
 						
-						additem.getFileSelection().setSelected(true);
+						additem.setFileSelection(true);
 						
 						guiC.setDuplicateImage(additem);
 					}

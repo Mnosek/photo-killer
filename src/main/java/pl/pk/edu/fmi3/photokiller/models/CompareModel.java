@@ -62,7 +62,7 @@ public class CompareModel implements Runnable {
 		    	targetImage = ImageIO.read(fm.toURI().toURL());
 		    	similarity = this.percentageSimilarity(sourceImage, targetImage);
 		    	if (similarity > 0) {
-		    		this.guiC.fillDuplicateTableList(new FileModelForTableView(fm.getName(), fm.getPath(), similarity.toString()));
+		    		this.guiC.fillDuplicateTableList(new FileModelForTableView(false,fm.getName(), fm.getPath(), similarity.toString()));
 		    	}
 		    	i++;
 		    	
