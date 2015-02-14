@@ -71,4 +71,5 @@ public class FileModelForTableView {
 	public String getFileSimilarity(){
 		return fileSimilarity.get();
 	}
+		
 }

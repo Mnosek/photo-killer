@@ -10,23 +10,28 @@ import java.io.FileFilter;
  * Image file filter
  */
 public class ImageFileFilter implements FileFilter{
+	
+	/**
+	 * Allowed file extensions
+	 */
 	private String[] extensions = new String[] {"jpg", "png", "gif", "bmp"};
 	
+	
+	/**
+	 * Returns true if file is acceptable
+	 */
 	@Override
     public boolean accept(File file) {
 		if (file.isDirectory()) {
 			return true;
 		}
 		
-		for (String extension : extensions)
-	    {
-	      if (file.getName().toLowerCase().endsWith(extension))
-	      {
-	    	  return !file.isHidden();
-	      }
+		for (String extension : extensions) {
+			if (file.getName().toLowerCase().endsWith(extension)) {
+				return !file.isHidden();
+			}
 	    }
 		
 		return false;
-		
 	}
 }

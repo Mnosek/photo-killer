@@ -17,6 +17,12 @@ public class SearchModel {
 	private ArrayList<File> searchColection = new ArrayList<File>();
 	private ArrayList<File> sourceColection = new ArrayList<File>();
 	
+	
+	/**
+	 * Constructor
+	 * @param File searchPath
+	 * @param File sourcePath
+	 */
 	public SearchModel(File searchPath, File sourcePath) {
 		
 		SearchPath(searchPath, searchColection);
@@ -29,6 +35,12 @@ public class SearchModel {
 		}
 	}
 	
+	
+	/**
+	 * Search path
+	 * @param path
+	 * @param result
+	 */
 	private void SearchPath(File path, ArrayList<File> result) {
 		
 		File[] collection = path.listFiles(new ImageFileFilter());
@@ -39,15 +51,24 @@ public class SearchModel {
 			} else {
 				result.add(file);
 			}
-		}	
-		
+		}		
 	}
 	
+	
+	/**
+	 * Returns source files collection
+	 * @return
+	 */
 	public ArrayList<File> getSourceCollection()
 	{
 		return sourceColection;
 	}
 	
+	
+	/**
+	 * Returns search files collection
+	 * @return
+	 */
 	public ArrayList<File> getSearchCollection()
 	{
 		return searchColection;

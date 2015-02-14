@@ -26,7 +26,7 @@ import pl.pk.edu.fmi3.photokiller.models.SearchObserverListModel;
  * @author Michał Policht - michal85so@gmail.com
  * @author Michał Nosek <mmnosek@gmail.com>
  * 
- * Class of main frame of application
+ * Application main frame class
  */
 public class GUICreator implements GuiCreatorInterface{
 	private BorderPane mainPane = null;
@@ -53,7 +53,7 @@ public class GUICreator implements GuiCreatorInterface{
 	
 	
 	/**
-	 * Method add controls to main frame
+	 * Adds controls to main frame
 	 */
 	private void createMainWindow(){
 		addControlsToNorthSide();
@@ -63,7 +63,7 @@ public class GUICreator implements GuiCreatorInterface{
 	
 	
 	/**
-	 * Method adds controls in the top part of frame
+	 * Adds controls in the top part of frame
 	 */
 	private void addControlsToNorthSide(){
 		FlowPane northPane = new FlowPane();
@@ -79,7 +79,7 @@ public class GUICreator implements GuiCreatorInterface{
 	
 	
 	/**
-	 * Method adds controls in the bottom part of frame
+	 * Adds controls in the bottom part of frame
 	 */
 	private void addControlsToSouthSide(){
 		GridPane southPane = new GridPane();
@@ -115,7 +115,7 @@ public class GUICreator implements GuiCreatorInterface{
 	
 	
 	/**
-	 * Method adds controls in the center of main frame
+	 * Adds controls in the center of main frame
 	 */
 	private void addControlsInside(){
 		GridPane centerPane = new GridPane();
@@ -147,8 +147,7 @@ public class GUICreator implements GuiCreatorInterface{
 		controls.add(comparsionProgress);
 		
 		centerPane.getChildren().addAll(controls);
-		
-		
+				
 		mainPane.setCenter(centerPane);
 	}
 	
@@ -163,12 +162,20 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	/**
+	 * Fills duplicate file list
+	 * @param file
+	 */
 	public void fillDuplicateTableList(FileModelForTableView file)
 	{
 		duplicateFileTable.addItemToTable(file);
 	}
 	
 	
+	/**
+	 * Attaches source table observer
+	 * @param comparator
+	 */
 	public void addSourceTableObserver(ObserverListModel comparator)
 	{
 		((TableView<FileModelForTableView>)this.sourceFileTable.getControl()).getSelectionModel().getSelectedItems().addListener(comparator);
@@ -176,11 +183,19 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	/**
+	 * Attaches search table observer
+	 * @param observator
+	 */
 	public void addSearchTableObserver(SearchObserverListModel observator) {
 		((TableView<FileModelForTableView>)this.duplicateFileTable.getControl()).getSelectionModel().getSelectedItems().addListener(observator);
 	}
 	
 	
+	/**
+	 * Sets source image preview
+	 * @param tableFile selected table row
+	 */
 	public void setSourceImage(FileModelForTableView tableFile)
 	{	
 		Image image = new Image(tableFile.getFilePath().toString());
@@ -190,6 +205,10 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	/**
+	 * Sets duplicate image preview
+	 * @param tableFile
+	 */
 	public void setDuplicateImage(FileModelForTableView tableFile)
 	{
 		Image image = new Image(tableFile.getFilePath().toString());
@@ -200,7 +219,7 @@ public class GUICreator implements GuiCreatorInterface{
 	
 	
 	/**
-	 * Method returns main panel
+	 * Returns main panel
 	 * @return main panel
 	 */
 	public Pane getMainPane(){
@@ -208,13 +227,18 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	/**
+	 * Returns table of possible duplicates
+	 * @return TableViewControlsFactory
+	 */
 	public TableViewControlsFactory getDuplicateTable()
 	{
 		return this.duplicateFileTable;
 	}
 	
+	
 	/**
-	 * Method sets search path in control
+	 * Sets search path in control
 	 */
 	public void setSearchFile(File searchFile){
 		searchPath = searchFile;
@@ -224,7 +248,7 @@ public class GUICreator implements GuiCreatorInterface{
 	
 	
 	/**
-	 * Method sets source path in control
+	 * Sets source path in control
 	 */
 	public void setSourceFile(File sourceFile){
 		sourcePath = sourceFile;
@@ -233,10 +257,19 @@ public class GUICreator implements GuiCreatorInterface{
 	}
 	
 	
+	/**
+	 * Returns search path
+	 * @return string
+	 */
 	public File getSearchFile() {
 		return searchPath;
 	}
 	
+	
+	/**
+	 * Returns source path
+	 * @return string
+	 */
 	public File getSourceFile() {
 		return sourcePath;
 	}

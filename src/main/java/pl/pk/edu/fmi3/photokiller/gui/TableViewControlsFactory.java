@@ -21,11 +21,12 @@ import java.io.File;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Factory of tableview controls
+ * TableView controls factory
  */
-public class TableViewControlsFactory extends AbstractControlsFactory{
+public class TableViewControlsFactory extends AbstractControlsFactory {
 	public FileModelForTableView selected;
 	public ObservableList<FileModelForTableView> tableList;
+	
 	
 	/**
 	 * Constructor
@@ -36,7 +37,6 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		TableColumn<FileModelForTableView, Boolean> selectionColumn = new TableColumn<FileModelForTableView, Boolean>();
 		TableColumn<FileModelForTableView, String> fileNameColumn = new TableColumn<FileModelForTableView, String>("File name");
 		TableColumn<FileModelForTableView, String> filePathColumn = new TableColumn<FileModelForTableView, String>("%");
-		
 		
 		selectionColumn.setCellValueFactory(new PropertyValueFactory<FileModelForTableView, Boolean>("fileSelection"));
 		selectionColumn.setEditable(true);
@@ -71,9 +71,10 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 		}
 	}
 	
+	
 	/**
-	 * Method adds items to tableview
-	 * @param items arraylist of items
+	 * Adds items to TableView
+	 * @param items ArrayList of items
 	 */
 	@SuppressWarnings("unchecked")
 	public void addItemsToTable(ArrayList<File> items){
@@ -84,6 +85,11 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 			((TableView<FileModelForTableView>)control).setItems(tableList);
 	}
 	
+	
+	/**
+	 * Adds item to table
+	 * @param file
+	 */
 	public void addItemToTable(FileModelForTableView file)
 	{
 		tableList = ((TableView<FileModelForTableView>)control).getItems();
@@ -94,7 +100,9 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	}
 	
 	
-	
+	/**
+	 * Removes all table items
+	 */
 	public void removeItems()
 	{
 		((TableView<FileModelForTableView>)control).getItems().clear();
@@ -103,16 +111,15 @@ public class TableViewControlsFactory extends AbstractControlsFactory{
 	
 	
 	/**
-	 * Method returns selected items
-	 * @return arraylist with selected items
+	 * Returns selected items
+	 * @return ArrayList with selected items
 	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<FileModel> getSelectedItemsAsArrayList(){
 		ArrayList<FileModel> selectedItems = new ArrayList<FileModel>();
 		
 			ObservableList<FileModelForTableView> items = tableList;
-			for (FileModelForTableView fm : items){
-				
+			for (FileModelForTableView fm : items) {
 				if (fm.getFileSelection())
 					selectedItems.add(new FileModel(fm.getFileName(), fm.getFilePath().toString()));
 			}

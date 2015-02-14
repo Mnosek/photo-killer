@@ -18,12 +18,20 @@ public class ObserverListModel implements ListChangeListener<FileModelForTableVi
 	private ArrayList<File> searchFiles;
 	private GUICreator guiC;
 	
+	
+	/**
+	 * Constructor
+	 * @param fileList
+	 * @param guiC
+	 */
 	public ObserverListModel(ArrayList<File> fileList, GUICreator guiC) {
 		this.searchFiles = fileList;
 		this.guiC = guiC;
 	}
 	
-	
+	/**
+	 * Fired on change
+	 */
 	@Override
 	public void onChanged(
 			javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file) {

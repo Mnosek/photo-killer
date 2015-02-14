@@ -12,7 +12,7 @@ import java.io.File;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Class which is invoke when the search button is pressed.
+ * Search button event handler
  */
 public class SearchButtonEvent implements EventHandler<ActionEvent>{
 	
@@ -20,10 +20,20 @@ public class SearchButtonEvent implements EventHandler<ActionEvent>{
 	private File searchPath;
 	private File sourcePath;
 	
+	
+	/**
+	 * Constructor
+	 * @param guiC gui creator
+	 */
 	public SearchButtonEvent(GUICreator guiC) {
 		this.guiC = guiC;
 	}
 	
+
+	/**
+	 * Event handler
+	 * @param ActionEvent
+	 */
 	@Override
 	public void handle(ActionEvent event) {
 		
@@ -37,8 +47,6 @@ public class SearchButtonEvent implements EventHandler<ActionEvent>{
 			guiC.fillSourceFileList(search.getSourceCollection());
 			guiC.addSourceTableObserver(new ObserverListModel(search.getSearchCollection(), guiC));
 			guiC.addSearchTableObserver(new SearchObserverListModel(guiC));
-		}
-		
+		}	
 	}
-
 }

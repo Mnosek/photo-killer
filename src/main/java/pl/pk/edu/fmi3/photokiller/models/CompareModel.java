@@ -11,7 +11,7 @@ import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 
 
 /**
- * Images compare model
+ * Images comparator model
  * @author Michał Nosek <mmnosek@gmail.com>
  * @author Wojciech Polus <polusw@hotmail.com>
  *
@@ -22,6 +22,13 @@ public class CompareModel implements Runnable {
 	private GUICreator guiC;
 	private javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file;
 	
+	
+	/**
+	 * Constructor
+	 * @param fileList files to search
+	 * @param guiC application gui
+	 * @param file source file
+	 */
 	public CompareModel(ArrayList<File> fileList, GUICreator guiC, 
 			javafx.collections.ListChangeListener.Change<? extends FileModelForTableView> file) {
 		this.searchFiles = fileList;
@@ -30,7 +37,9 @@ public class CompareModel implements Runnable {
 	}
 	
 	
-	
+	/**
+	 * Run comparation
+	 */
 	public void run() {
 		file.next();
 		for (FileModelForTableView additem : file.getAddedSubList()) {
@@ -39,14 +48,19 @@ public class CompareModel implements Runnable {
 	}
 	
 	
-	
+	/**
+	 * Starts new thread
+	 */
 	public void start() {
 		t = new Thread (this);
         t.start ();
 	}
 	
 	
-	
+	/**
+	 * Compares two files
+	 * @param source source file
+	 */
 	public void compareToSearch(FileModelForTableView source)
 	{
 	    BufferedImage sourceImage = null;
@@ -64,6 +78,7 @@ public class CompareModel implements Runnable {
 		    	if (similarity > 0) {
 		    		this.guiC.fillDuplicateTableList(new FileModelForTableView(false,fm.getName(), fm.getPath(), similarity.toString()));
 		    	}
+		    	targetImage.flush();
 		    	i++;
 		    	
 		    	
@@ -76,6 +91,12 @@ public class CompareModel implements Runnable {
 	}
 
 
+	/**
+	 * Calculates percentage similarity
+	 * @param sourceImage
+	 * @param targetImage
+	 * @return double percentage
+	 */
 	private Double percentageSimilarity(BufferedImage sourceImage, BufferedImage targetImage) {
 		int sourceWidth  = sourceImage.getWidth(null);
 	    int targetWidth  = targetImage.getWidth(null);

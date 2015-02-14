@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Interface for GUI creator
+ * GUI creator interface
  */
 public interface GuiCreatorInterface {
 	void setSearchFile(File searchFile);

@@ -5,13 +5,13 @@ import javafx.scene.control.Label;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Factory of label controls
+ * Labels control factory
  */
 public class LabelControlsFactory extends AbstractControlsFactory{
 	
 	/**
 	 * Constructor
-	 * @param name text of label
+	 * @param name label text
 	 */
 	public LabelControlsFactory(String name){
 		control = new Label(name);

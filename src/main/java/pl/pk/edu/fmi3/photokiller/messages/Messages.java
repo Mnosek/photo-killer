@@ -8,11 +8,11 @@ import javafx.scene.control.ButtonType;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Class with messages of application.
+ * Application messages class
  */
 public class Messages {
 	/**
-	 * Method showing error message
+	 * Shows error message
 	 * @param message message to show
 	 */
 	private static void showError(String message){
@@ -24,7 +24,7 @@ public class Messages {
 	}
 	
 	/**
-	 * Method showing question
+	 * Shows question
 	 * @param message message to show on question
 	 * @return true if user confirm
 	 */
@@ -39,8 +39,9 @@ public class Messages {
 		return false;
 	}
 	
+	
 	/**
-	 * Method shows message when the paths are empty
+	 * Shows message when the paths are empty
 	 */
 	public static void emptyPath(){
 		showError("You have to choose your source and search path!");
@@ -50,8 +51,9 @@ public class Messages {
 	 * Method shows message when files was not selected
 	 */
 	public static void compareWithoutSelection(){
-		showError("You did not select photos to compare!");
+		showError("You didn't select photos to compare!");
 	}
+	
 	
 	/**
 	 * method shows confirmation about deleting selected files
@@ -61,8 +63,9 @@ public class Messages {
 		return showQuestion("Are you sure you want to delete these files?");
 	}
 	
+	
 	/**
-	 * Method show information about not implemethet functionalities
+	 * Method show information about not implemented functionalities
 	 */
 	public static void notImplemented(){
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -71,6 +74,12 @@ public class Messages {
 		alert.setContentText("This functionality is waiting for implementation and will be available as soon as it possible.");
 		alert.showAndWait();
 	}
+	
+	
+	/**
+	 * Shows information message
+	 * @param messages
+	 */
 	public static void messagesMe(String messages) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Info");

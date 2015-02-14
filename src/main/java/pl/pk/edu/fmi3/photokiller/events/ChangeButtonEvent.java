@@ -9,12 +9,10 @@ import pl.pk.edu.fmi3.photokiller.gui.GuiCreatorInterface;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Class which is invoke when the change button is pressed.
+ * Change button event handler
  */
 public class ChangeButtonEvent implements EventHandler<ActionEvent>{
 	/**
-	 * 
-	 * @author Michał Policht - michal85so@gmail.com
 	 * Enum with type of pressed button
 	 */
 	public static enum ChangeName{
@@ -32,7 +30,7 @@ public class ChangeButtonEvent implements EventHandler<ActionEvent>{
 		}
 		
 		/**
-		 * Method return name of pressed button
+		 * Returns name of pressed button
 		 * @return button's name
 		 */
 		public String getActionName(){
@@ -44,6 +42,7 @@ public class ChangeButtonEvent implements EventHandler<ActionEvent>{
 	GuiCreatorInterface guiC;
 	AbstractChangeControl absChaCon;
 	
+	
 	/**
 	 * Constructor
 	 * @param nameChangeControl type of pressed button
@@ -53,6 +52,7 @@ public class ChangeButtonEvent implements EventHandler<ActionEvent>{
 		chanName = nameChangeControl;
 		this.guiC = guiC;
 	}
+	
 
 	/**
 	 * Method invokes when the button is pressed
@@ -74,16 +74,17 @@ public class ChangeButtonEvent implements EventHandler<ActionEvent>{
 		}
 	}
 
+	
 	/**
 	 * 
 	 * @author Michał Policht - michal85so@gmail.com
-	 * Abstract class, that is call window with directory choose
+	 * Calls directory choose window
 	 */
 	public abstract class AbstractChangeControl{
 		protected String controlName;
 		
 		/**
-		 * Method invoke window to choose directory
+		 * Opens directory choose window
 		 * @return
 		 */
 		public File selectDirectory(){
@@ -93,24 +94,26 @@ public class ChangeButtonEvent implements EventHandler<ActionEvent>{
 		}
 	}
 	
-	/**
-	 * 
-	 * @author Michał Policht - michal85so@gmail.com
-	 * Implementation of astractChangeControl on change button for source path. 
-	 */
-	public class SourceChangeControl extends AbstractChangeControl{
-		/**
-		 * Constructor
-		 */
-		public SourceChangeControl(){
-			controlName = ChangeName.Source.getActionName();
-		}
-	}
 	
 	/**
 	 * 
 	 * @author Michał Policht - michal85so@gmail.com
-	 * Implementation of astractChangeControl on change button for search path.
+	 * astractChangeControl implementation, fired by source path change button 
+	 */
+	public class SourceChangeControl extends AbstractChangeControl {
+		/**
+		 * Constructor
+		 */
+		public SourceChangeControl() {
+			controlName = ChangeName.Source.getActionName();
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @author Michał Policht - michal85so@gmail.com
+	 * abstractChangeControl implementation, fired by search path change button
 	 */
 	public class SearchChangeControl extends AbstractChangeControl{
 		/**

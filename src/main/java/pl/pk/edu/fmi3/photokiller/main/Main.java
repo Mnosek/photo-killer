@@ -6,14 +6,14 @@ import javafx.stage.Stage;
 import pl.pk.edu.fmi3.photokiller.gui.GUICreator;
 /**
  * 
- * @author Michał Policht - michal85so@gmail.com
- * @author Michał Nosek
- * @author Wojciech Polus
+ * @author Michał Policht <michal85so@gmail.com>
+ * @author Michał Nosek <mmnosek@gmail.com>
+ * @author Wojciech Polus <polusw@hotmail.com>
  * @author Jakub Bigos
  * @author Anna Szala
- * @author Kamil Madejski
- * Application finding duplicates of selected types of files and removing them.
- * Main class
+ * @author Kamil Madejski 
+ * Would you like to find and remove your photos duplicates? PhotoKiller to the rescue!
+ * App main class
  */
 public class Main extends Application{
 	private final String APP_TITLE = "Photo killer";
@@ -21,7 +21,7 @@ public class Main extends Application{
 	private final Integer DEFAULT_SCREEN_SIZE_HEIGHT = 600;
 	
 	/**
-	 * Starting method
+	 * Start method
 	 * @param args arguments from console
 	 */
 	public static void main (String[] args){
@@ -36,7 +36,7 @@ public class Main extends Application{
 	}
 	
 	/**
-	 * Method which creates main scene for main frame
+	 * Creates main scene for main frame
 	 * @return main scene
 	 */
 	private Scene createPrimaryScene(){

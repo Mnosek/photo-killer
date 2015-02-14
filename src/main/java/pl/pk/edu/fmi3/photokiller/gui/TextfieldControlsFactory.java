@@ -5,7 +5,7 @@ import javafx.scene.control.TextField;
 /**
  * 
  * @author Michał Policht - michal85so@gmail.com
- * Factory of textfield controls
+ * TextField Controls factory
  */
 public class TextfieldControlsFactory extends AbstractControlsFactory{
 	/**
@@ -17,9 +17,10 @@ public class TextfieldControlsFactory extends AbstractControlsFactory{
 		((TextField)control).setPrefColumnCount(40);
 	}
 	
+	
 	/**
 	 * Constructor
-	 * @param editable is editable
+	 * @param editable
 	 */
 	public TextfieldControlsFactory(Boolean editable){
 		this();
