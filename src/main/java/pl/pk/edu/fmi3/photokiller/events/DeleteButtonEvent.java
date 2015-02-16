@@ -46,8 +46,8 @@ public class DeleteButtonEvent implements EventHandler<ActionEvent>{
 			Messages.messagesMe("Wybierz pliki do usunięcia!");
 		} else {
 			for (FileModel item : selectedList) {
-				if (item.removeFromFilesystem()) {
-					//tutaj usuwanie z listy
+				if (true) {
+					this.guiC.getDuplicateTable().removeItem(item);
 				}
 			}
 		}

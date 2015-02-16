@@ -109,6 +109,20 @@ public class TableViewControlsFactory extends AbstractControlsFactory {
 	}
 	
 	
+	/**
+	 * Removes item from table list
+	 * @param FileModel item
+	 */
+	public void removeItem(FileModel item) {
+		tableList = ((TableView<FileModelForTableView>)control).getItems();
+		
+		for (FileModelForTableView fm : tableList) {
+			if (fm.getFilePath().toString().trim().equals(item.getFilePath())) {
+				tableList.remove(fm);
+			}
+		}
+	}
+	
 	
 	/**
 	 * Returns selected items
